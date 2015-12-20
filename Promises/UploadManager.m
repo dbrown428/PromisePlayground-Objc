@@ -30,6 +30,10 @@
         [self learnWhenCondition];
         sleep(4);
         
+        [self sendMainThreadUploadDidChange:0.85];
+        [self learnAsyncWrapping];
+        sleep(4);
+        
         [self sendMainThreadUploadDidChange:1.0];
         [self sendMainThreadUploadMessage:@"> > End Long Running Process"];
         
@@ -107,6 +111,24 @@
         [self sendMainThreadUploadMessage:message];
         sleep(4);
     });
+}
+
+- (PMKPromise *)learnAsyncWrapping
+{
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve)
+    {
+        [UploadManager calculateSomethingWithCompletionBlock:^void ()
+        {
+            [self sendMainThreadUploadMessage:@"> > > > > Upload Manager - Completion Callback"];
+            resolve(@"Result or Error");
+        }];
+    }];
+}
+
++ (void)calculateSomethingWithCompletionBlock:(void (^)())completionBlock
+{
+    sleep(4);
+    completionBlock();
 }
 
 - (void)sendMainThreadUploadDidChange:(float)value
