@@ -1,19 +1,10 @@
-//
-//  AppDelegate.m
-//  Promises
-//
-//  Created by D. Brown on 2015-12-13.
-//  Copyright (c) 2015 Learning. All rights reserved.
-//
 
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
-
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
